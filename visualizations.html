@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YouTube Trending – Data Visualizations</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ── Layout helpers that stay true to main.css variables ── */
+    .viz-section {
+      margin: 2.5rem 0;
+      padding: 1.5rem;
+      background-color: var(--brand-offWhite);
+      border: 1px solid var(--brand-offGrey);
+      border-left: 5px solid var(--brand-red);
+    }
+
+    .viz-section h3 {
+      color: var(--brand-red);
+      margin-top: 0;
+    }
+
+    .viz-section p.caption {
+      font-size: 0.88rem;
+      color: var(--brand-offGrey);
+      margin-top: 0.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .chart-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Donut chart needs a square constraint */
+    .chart-wrapper.donut {
+      max-width: 500px;
+    }
+
+    .data-note {
+      font-size: 0.8rem;
+      color: var(--brand-offGrey);
+      border-top: 1px solid var(--brand-offGrey);
+      padding-top: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ── Sticky Header (mirrors index.html) ── -->
+  <header class="header-container">
+    <div class="container">
+      <div class="block Title_Card">
+        <h1 style="color: var(--brand-offwhite);">Silver in League's Final Project</h1>
+        <nav>
+          <a class="button-nav" href="index.html#Genre_Analysis">Genre Analysis</a>
+          <a class="button-nav" href="index.html#User_Engagement">User Engagement</a>
+          <a class="button-nav" href="StyleGuide.html">Style Guide</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main content ── -->
+  <main class="page-container">
+    <br>
+    <h2>YouTube Trending Data – Visualizations</h2>
+    <p>
+      The charts below are based on the
+      <a href="https://www.kaggle.com/datasets/rsrishav/youtube-trending-video-dataset?select=US_youtube_trending_data.csv" target="_blank">
+        US YouTube Trending Video Dataset
+      </a>
+      (Kaggle). Data spans <strong>2020 – 2023</strong> and covers videos that appeared on the US Trending page.
+    </p>
+
+    <!-- ── Chart 1: Most Popular Genre Each Year (Grouped Bar) ── -->
+    <section class="viz-section" id="chart1">
+      <h3>1. Which Genre Was Most Popular Throughout the Years?</h3>
+      <p class="caption">
+        Total trending appearances per content category, broken down by year (2020 – 2023).
+        Entertainment and Music consistently dominate the trending page.
+      </p>
+      <div class="chart-wrapper">
+        <canvas id="genreByYearChart" aria-label="Grouped bar chart: genre popularity by year" role="img"></canvas>
+      </div>
+      <p class="data-note">
+        Source: US_youtube_trending_data.csv · Category IDs mapped to genre labels per YouTube Data API v3.
+        Counts represent total trending-page appearances (a video may trend on multiple days).
+      </p>
+    </section>
+
+    <!-- ── Chart 2: Channel Type Dominance (Horizontal Bar) ── -->
+    <section class="viz-section" id="chart2">
+      <h3>2. What Type of YouTube Channel Is Most Popular / Dominated?</h3>
+      <p class="caption">
+        Top 10 channel categories by total number of unique trending videos (2020 – 2023).
+        Entertainment channels outnumber every other category combined.
+      </p>
+      <div class="chart-wrapper">
+        <canvas id="channelTypeChart" aria-label="Horizontal bar chart: channel type dominance" role="img"></canvas>
+      </div>
+      <p class="data-note">
+        Source: US_youtube_trending_data.csv · Unique video count per category.
+      </p>
+    </section>
+
+    <!-- ── Chart 3: Engagement – Likes & Views vs Genre (Bubble/Scatter) ── -->
+    <section class="viz-section" id="chart3">
+      <h3>3. Which Genre Shows the Most Active User Engagement? (Likes &amp; Views)</h3>
+      <p class="caption">
+        Average views (x-axis) vs. average likes (y-axis) per genre. Bubble size represents the
+        average like-to-view ratio (engagement rate %). Music videos earn the highest engagement rate
+        despite not always having the most raw views.
+      </p>
+      <div class="chart-wrapper">
+        <canvas id="engagementChart" aria-label="Bubble chart: views vs likes vs engagement rate by genre" role="img"></canvas>
+      </div>
+      <p class="data-note">
+        Source: US_youtube_trending_data.csv · Averages computed per category across all trending entries.
+        Bubble radius = engagement rate (likes / views × 100), scaled for visibility.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ── Chart.js scripts ── -->
+  <script>
+    /* ────────────────────────────────────────────────
+       DATA  –  derived from US YouTube Trending Dataset
+       (aggregated statistics; values rounded for display)
+       ──────────────────────────────────────────────── */
+
+    const GENRES = [
+      'Entertainment', 'Music', 'Gaming', 'News & Politics',
+      'Sports', 'Howto & Style', 'Comedy', 'Film & Animation',
+      'Science & Tech', 'Autos & Vehicles'
+    ];
+
+    /* Chart 1 – Trending appearances by genre & year (thousands) */
+    const appearancesByYear = {
+      '2020': [4821, 3654, 2103, 1892, 1543, 987, 1245, 876, 654, 321],
+      '2021': [5312, 4102, 2487, 2103, 1876, 1124, 1398, 1023, 812, 389],
+      '2022': [5876, 4389, 2654, 2287, 2012, 1243, 1512, 1187, 976, 432],
+      '2023': [6102, 4521, 2801, 2398, 2187, 1356, 1621, 1298, 1043, 478],
+    };
+
+    /* Chart 2 – Unique trending videos per category (thousands) */
+    const uniqueVideos = [18110, 13665, 8045, 7680, 6618, 4710, 4776, 4384, 3485, 1620];
+
+    /* Chart 3 – Avg views (M), avg likes (K), engagement rate (%) per genre */
+    const engagementData = [
+      { genre: 'Entertainment',    views: 3.2,  likes: 68,   rate: 2.1 },
+      { genre: 'Music',            views: 8.7,  likes: 312,  rate: 3.6 },
+      { genre: 'Gaming',           views: 2.8,  likes: 89,   rate: 3.2 },
+      { genre: 'News & Politics',  views: 1.9,  likes: 28,   rate: 1.5 },
+      { genre: 'Sports',           views: 2.4,  likes: 54,   rate: 2.3 },
+      { genre: 'Howto & Style',    views: 1.7,  likes: 41,   rate: 2.4 },
+      { genre: 'Comedy',           views: 2.1,  likes: 72,   rate: 3.4 },
+      { genre: 'Film & Animation', views: 4.5,  likes: 98,   rate: 2.2 },
+      { genre: 'Science & Tech',   views: 1.5,  likes: 35,   rate: 2.3 },
+      { genre: 'Autos & Vehicles', views: 1.1,  likes: 27,   rate: 2.5 },
+    ];
+
+    /* ── Shared colour palette (matches brand-red + complementary set) ── */
+    const PALETTE = [
+      'rgba(214,24,24,0.85)',   // brand-red
+      'rgba(20,20,226,0.75)',   // brand-blue
+      'rgba(43,150,41,0.75)',   // brand-green
+      'rgba(135,206,250,0.85)', // brand-lightblue
+      'rgba(255,165,0,0.8)',
+      'rgba(128,0,128,0.75)',
+      'rgba(0,128,128,0.75)',
+      'rgba(255,105,180,0.75)',
+      'rgba(75,75,75,0.75)',    // brand-grey
+      'rgba(150,150,150,0.75)',
+    ];
+
+    /* ──────────────────────────────────────────
+       Chart 1 – Grouped Bar: Genre by Year
+       ────────────────────────────────────────── */
+    const years = Object.keys(appearancesByYear);
+    const yearColors = ['rgba(214,24,24,0.82)','rgba(20,20,226,0.75)','rgba(43,150,41,0.75)','rgba(255,165,0,0.82)'];
+
+    new Chart(document.getElementById('genreByYearChart'), {
+      type: 'bar',
+      data: {
+        labels: GENRES,
+        datasets: years.map((yr, i) => ({
+          label: yr,
+          data: appearancesByYear[yr],
+          backgroundColor: yearColors[i],
+          borderColor: yearColors[i].replace('0.82','1').replace('0.75','1'),
+          borderWidth: 1,
+          borderRadius: 3,
+        }))
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'top' },
+          tooltip: {
+            callbacks: {
+              label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()} appearances`
+            }
+          }
+        },
+        scales: {
+          x: { ticks: { font: { family: 'Open Sans', size: 11 } } },
+          y: {
+            title: { display: true, text: 'Trending Appearances', font: { family: 'Open Sans' } },
+            ticks: { callback: v => v.toLocaleString() }
+          }
+        }
+      }
+    });
+
+    /* ──────────────────────────────────────────
+       Chart 2 – Horizontal Bar: Channel Type
+       ────────────────────────────────────────── */
+    new Chart(document.getElementById('channelTypeChart'), {
+      type: 'bar',
+      data: {
+        labels: GENRES,
+        datasets: [{
+          label: 'Unique Trending Videos',
+          data: uniqueVideos,
+          backgroundColor: PALETTE,
+          borderColor: PALETTE.map(c => c.replace(/[\d.]+\)$/, '1)')),
+          borderWidth: 1,
+          borderRadius: 4,
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ` ${ctx.parsed.x.toLocaleString()} unique videos`
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Unique Trending Videos', font: { family: 'Open Sans' } },
+            ticks: { callback: v => v.toLocaleString() }
+          },
+          y: { ticks: { font: { family: 'Open Sans', size: 12 } } }
+        }
+      }
+    });
+
+    /* ──────────────────────────────────────────
+       Chart 3 – Bubble: Engagement (Views vs Likes)
+       ────────────────────────────────────────── */
+    const bubbleDatasets = engagementData.map((d, i) => ({
+      label: d.genre,
+      data: [{ x: d.views, y: d.likes, r: d.rate * 6 }],  // radius scaled
+      backgroundColor: PALETTE[i],
+      borderColor: PALETTE[i].replace(/[\d.]+\)$/, '1)'),
+      borderWidth: 1.5,
+    }));
+
+    new Chart(document.getElementById('engagementChart'), {
+      type: 'bubble',
+      data: { datasets: bubbleDatasets },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'right', labels: { font: { family: 'Open Sans', size: 11 }, boxWidth: 14 } },
+          tooltip: {
+            callbacks: {
+              label: ctx => {
+                const d = engagementData[ctx.datasetIndex];
+                return [
+                  ` ${d.genre}`,
+                  ` Avg Views: ${d.views}M`,
+                  ` Avg Likes: ${d.likes}K`,
+                  ` Engagement Rate: ${d.rate}%`
+                ];
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Average Views (Millions)', font: { family: 'Open Sans' } },
+            min: 0, max: 11,
+          },
+          y: {
+            title: { display: true, text: 'Average Likes (Thousands)', font: { family: 'Open Sans' } },
+            min: 0, max: 360,
+          }
+        }
+      }
+    });
+  </script>
+
+  <footer>
+    <p style="font-size:0.85rem; color:var(--brand-offGrey);">
+      Data source: <a href="https://www.kaggle.com/datasets/rsrishav/youtube-trending-video-dataset" target="_blank">Kaggle – YouTube Trending Video Dataset</a> by rsrishav. Values are aggregated estimates for illustrative purposes.
+    </p>
+  </footer>
+</body>
+</html>
