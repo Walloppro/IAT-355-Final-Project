@@ -1,12 +1,3 @@
-// ============================================================
-//  userEngagementVis.js
-//  Self-contained: builds the full page + all Vega-Lite charts.
-//  Data: US_youtube_trending_data.csv (2020-2023)
-//        Stratified sample — 3,000 entries × 6 genres (18,000 rows)
-//        Genres: Music · Entertainment · Gaming ·
-//                News & Politics · Sports · Education
-// ============================================================
-
 // ── 1. Inject page HTML ──────────────────────────────────────
 document.head.insertAdjacentHTML("beforeend", `
   <meta charset="utf-8">
