@@ -5,41 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Final Project</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+    <!-- <link href="css/main.css" rel="stylesheet"> -->
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite-api@5.6.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-tooltip"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <script>
+      const options = {
+        config: {
+          // Vega-Lite default configuration
+        },
+        init: (view) => {
+          // initialize tooltip handler
+          view.tooltip(new vegaTooltip.Handler().call);
+        },
+        view: {
+          // view constructor options
+          // remove the loader if you don't want to default to vega-datasets!
+          renderer: "canvas",
+        },
+      };
+
+      // register vega and vega-lite with the API
+      vl.register(vega, vegaLite, options);
+    </script>
   </head>
 
   <body>
-        <header class="header-container">
-            <div class="container">
-                <div class="block Title_Card">
-                    <h1 style="color: var(--brand-offwhite);">Silver in League's Final Project</h1>
-                        <nav>        
-                            <a class="button-nav" href="#Genre_Analysis">Genre Analysis</a>
-                            <a class="button-nav" href="#User_Engagement">User Engagement</a>
-                            <a class="button-nav" href="visualizations.html">Visualizations</a>
-                            <a class="button-nav" href="StyleGuide.html">Style Guide</a>
-                        </nav>
-                </div>
+        <header class="nav-bar">
+            <div>
+                <a href="/" class="nav-home-button">Youtube Trends Analysis</a>
+            </div>
+            <div class="nav-items">  
+                <a class="nav-button selected" href="#genre-section">Genre Analysis</a>
+                <!-- Change page link here -->
+                <a class="nav-button" href="user_engagement.html">User Engagement</a>
             </div>
         </header>
 
-        <main class="page-container">
-            <br>
-            <section id="Genre_Analysis">
-                <h2>Genre Analysis</h2>
-                
-            </section>
-            <br>
-            <section id="User_Engagement">
-                <h2>User Engagement</h2>
-                <a href="user_engagement.html"><h2>User Engagement Analysis →</h2></a>
-            </section>
-            <br>
-            <section id="Visualizations">
-                <a href="visualizations.html"><h2>Visualizations</h2></a>
-            </section>
-        </main>
+        <section class="hero-container">
+            <div class="hero-text-container">
+                <p class="hero-title">Check out how YouTube Trends have changed over the last 4 years.</p>
+                <p class="hero-text">If you want to become a content creator - see which content of videos can give you more likes.</p>
+                <p class="hero-text">If you are a social marketer - learn how to grab your target audience attention.</p>
+                <p class="hero-text">If you watch YouTube - check whether your favourite channel is popular.</p>
+            </div>
+            <div class="hero-img">
+                <img src="assets/YouTubeIcon.png" alt="YouTube Icon">
+            </div>
+        </section>
 
+        <div class="scroll-down-container">
+            <a href="#genre-section" class="scroll-down-button"><i class="fa-solid fa-chevron-down"></i></a>
+        </div>
 
+        <section id="genre-section">
+            <p class="section-title">Genre Analysis</p>
+            <p>Track which genres dominate, rise, drop, spike, or remain consistent over time</p>
+            <div class="genre-top">
+                  <div id="vis1"></div>
+                <div id="ranking-card" class="ranking-card"></div>
+            </div>
+            
+            <div id="vis1_2"></div>
+            <div id="vis2"></div>
+             
+        </section>
+
+        <script src="genreVis.js"></script>
   </body>
 </html>
