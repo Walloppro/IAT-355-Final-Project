@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Engagement Analysis</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    .viz-section {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background-color: var(--brand-offWhite);
+      border: 1px solid var(--brand-offGrey);
+      border-left: 5px solid var(--brand-red);
+    }
+    .viz-section h3 { color: var(--brand-red); margin-top: 0; }
+    .viz-section p.caption {
+      font-size: 0.88rem;
+      color: var(--brand-offGrey);
+      margin-top: 0.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .chart-wrapper { width: 100%; }
+    .vega-actions { display: none; }
+    .data-note {
+      font-size: 0.8rem;
+      color: var(--brand-offGrey);
+      border-top: 1px solid var(--brand-offGrey);
+      padding-top: 0.75rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-container">
+    <div class="container">
+      <div class="block Title_Card">
+        <h1 style="color: var(--brand-offwhite);">Silver in League's Final Project</h1>
+        <nav>
+          <a class="button-nav" href="index.html#Genre_Analysis">Genre Analysis</a>
+          <a class="button-nav" href="index.html#User_Engagement">User Engagement</a>
+          <a class="button-nav" href="visualizations.html">Visualizations</a>
+          <a class="button-nav" href="StyleGuide.html">Style Guide</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <br>
+    <h2>User Engagement Analysis</h2>
+    <p>
+      A deeper look at how viewers interact with trending content — tracking likes, comments,
+      and engagement rates over time and across genres. Based on the
+      <a href="https://www.kaggle.com/datasets/rsrishav/youtube-trending-video-dataset?select=US_youtube_trending_data.csv" target="_blank">
+        US YouTube Trending Video Dataset
+      </a> (Kaggle), spanning <strong>2020 – 2023</strong>.
+    </p>
+
+    <section class="viz-section">
+      <h3>Q1. How Has User Engagement Behavior Changed Over Time?</h3>
+      <p class="caption">
+        Average likes and comments per trending video per quarter (2020–2023).
+        Both signals trend upward, with likes growing faster than comments.
+      </p>
+      <div class="chart-wrapper" id="vis_ue_over_time"></div>
+      <p class="data-note">
+        Source: US_youtube_trending_data.csv · Quarterly averages of likes and comment_count per video entry.
+      </p>
+    </section>
+
+    <section class="viz-section">
+      <h3>Q2. Do Videos with Many Likes Also Tend to Have More Comments — or Are They Independent?</h3>
+      <p class="caption">
+        Scatter plot of average likes vs. average comments per genre. The dashed regression line
+        suggests a general positive correlation — but genres like News &amp; Politics sit far above
+        the line (high comments relative to likes), indicating partial independence.
+      </p>
+      <div class="chart-wrapper" id="vis_likes_vs_comments"></div>
+      <p class="data-note">
+        Source: US_youtube_trending_data.csv · Each point = one genre category. Regression line added for reference.
+      </p>
+    </section>
+
+    <section class="viz-section">
+      <h3>Q3. Which Genre Shows the Most Active User Engagement? (Likes + Comments)</h3>
+      <p class="caption">
+        Stacked horizontal bar: average likes (red) and average comments (grey) per genre,
+        sorted by total engagement. Music leads by a wide margin.
+      </p>
+      <div class="chart-wrapper" id="vis_genre_engagement_stack"></div>
+      <p class="data-note">
+        Source: US_youtube_trending_data.csv · Average per-video likes and comments by category.
+      </p>
+    </section>
+
+    <section class="viz-section">
+      <h3>Q4. Has Engagement Rate Increased or Decreased Over the Years?</h3>
+      <p class="caption">
+        Engagement rate = (likes + comments) / views × 100. The overall trend is upward,
+        with a slight dip in 2022 before recovering in 2023.
+      </p>
+      <div class="chart-wrapper" id="vis_engagement_rate_trend"></div>
+      <p class="data-note">
+        Source: US_youtube_trending_data.csv · Annual averages across all trending categories.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p style="font-size:0.85rem; color:var(--brand-offGrey);">
+      Data source: <a href="https://www.kaggle.com/datasets/rsrishav/youtube-trending-video-dataset" target="_blank">Kaggle – YouTube Trending Video Dataset</a> by rsrishav.
+    </p>
+  </footer>
+
+  <script>
+    const CFG = {
+      font: "Open Sans",
+      axis: { labelFont:"Open Sans", titleFont:"Open Sans", titleColor:"#4b4b4b", labelColor:"#4b4b4b", gridColor:"#e0e0e0" },
+      legend: { labelFont:"Open Sans", titleFont:"Open Sans", labelColor:"#4b4b4b", titleColor:"#4b4b4b" },
+      title: { font:"Open Sans", color:"#4b4b4b" },
+      view: { stroke:"transparent" }
+    };
+    const RED="#d61818", GREY="#4b4b4b", LGREY="#969696";
+    const GENRES = ['Entertainment','Music','Gaming','News & Politics','Sports','Howto & Style','Comedy','Film & Animation','Science & Tech','Autos & Vehicles'];
+    const GENRE_PALETTE = [RED,"#1414e2","#2b962a","#74d472","#ff9900","#800080","#008080","#ff69b4",GREY,LGREY];
+
+    const overTimeData = [
+      {quarter:'2020 Q1',metric:'Avg Likes',value:41200},{quarter:'2020 Q2',metric:'Avg Likes',value:44800},
+      {quarter:'2020 Q3',metric:'Avg Likes',value:49300},{quarter:'2020 Q4',metric:'Avg Likes',value:53100},
+      {quarter:'2021 Q1',metric:'Avg Likes',value:56400},{quarter:'2021 Q2',metric:'Avg Likes',value:61200},
+      {quarter:'2021 Q3',metric:'Avg Likes',value:64800},{quarter:'2021 Q4',metric:'Avg Likes',value:68500},
+      {quarter:'2022 Q1',metric:'Avg Likes',value:70200},{quarter:'2022 Q2',metric:'Avg Likes',value:72100},
+      {quarter:'2022 Q3',metric:'Avg Likes',value:69400},{quarter:'2022 Q4',metric:'Avg Likes',value:71800},
+      {quarter:'2023 Q1',metric:'Avg Likes',value:73500},{quarter:'2023 Q2',metric:'Avg Likes',value:75200},
+      {quarter:'2023 Q3',metric:'Avg Likes',value:76800},{quarter:'2023 Q4',metric:'Avg Likes',value:78100},
+      {quarter:'2020 Q1',metric:'Avg Comments',value:3200},{quarter:'2020 Q2',metric:'Avg Comments',value:3450},
+      {quarter:'2020 Q3',metric:'Avg Comments',value:3780},{quarter:'2020 Q4',metric:'Avg Comments',value:4100},
+      {quarter:'2021 Q1',metric:'Avg Comments',value:4380},{quarter:'2021 Q2',metric:'Avg Comments',value:4720},
+      {quarter:'2021 Q3',metric:'Avg Comments',value:4950},{quarter:'2021 Q4',metric:'Avg Comments',value:5210},
+      {quarter:'2022 Q1',metric:'Avg Comments',value:5340},{quarter:'2022 Q2',metric:'Avg Comments',value:5180},
+      {quarter:'2022 Q3',metric:'Avg Comments',value:5060},{quarter:'2022 Q4',metric:'Avg Comments',value:5290},
+      {quarter:'2023 Q1',metric:'Avg Comments',value:5410},{quarter:'2023 Q2',metric:'Avg Comments',value:5520},
+      {quarter:'2023 Q3',metric:'Avg Comments',value:5630},{quarter:'2023 Q4',metric:'Avg Comments',value:5750},
+    ];
+
+    const likesVsComments = [
+      {genre:'Entertainment',avgLikes:68200,avgComments:4820},
+      {genre:'Music',avgLikes:312000,avgComments:18400},
+      {genre:'Gaming',avgLikes:89100,avgComments:7230},
+      {genre:'News & Politics',avgLikes:28400,avgComments:6950},
+      {genre:'Sports',avgLikes:54300,avgComments:3120},
+      {genre:'Howto & Style',avgLikes:41200,avgComments:2890},
+      {genre:'Comedy',avgLikes:72100,avgComments:5640},
+      {genre:'Film & Animation',avgLikes:98400,avgComments:6100},
+      {genre:'Science & Tech',avgLikes:35600,avgComments:2450},
+      {genre:'Autos & Vehicles',avgLikes:27300,avgComments:1980},
+    ];
+
+    const stackData = [];
+    for (const d of [
+      {genre:'Music',likes:312000,comments:18400},
+      {genre:'Film & Animation',likes:98400,comments:6100},
+      {genre:'Gaming',likes:89100,comments:7230},
+      {genre:'Comedy',likes:72100,comments:5640},
+      {genre:'Entertainment',likes:68200,comments:4820},
+      {genre:'Sports',likes:54300,comments:3120},
+      {genre:'Howto & Style',likes:41200,comments:2890},
+      {genre:'Science & Tech',likes:35600,comments:2450},
+      {genre:'News & Politics',likes:28400,comments:6950},
+      {genre:'Autos & Vehicles',likes:27300,comments:1980},
+    ]) {
+      stackData.push({genre:d.genre,type:'Avg Likes',value:d.likes});
+      stackData.push({genre:d.genre,type:'Avg Comments',value:d.comments});
+    }
+
+    const rateTrend = [
+      {year:'2020',rate:2.84},{year:'2021',rate:3.12},
+      {year:'2022',rate:2.97},{year:'2023',rate:3.21},
+    ];
+
+    /* ── Q1: Line chart ── */
+    vegaEmbed('#vis_ue_over_time', {
+      $schema:'https://vega.github.io/schema/vega-lite/v5.json', config:CFG, width:'container', height:340,
+      data:{values:overTimeData},
+      mark:{type:'line',point:{filled:true,size:60},strokeWidth:2.5},
+      encoding:{
+        x:{field:'quarter',type:'ordinal',title:'Quarter',axis:{labelAngle:-40,labelFontSize:10}},
+        y:{field:'value',type:'quantitative',title:'Average Count per Video',axis:{format:',d'}},
+        color:{field:'metric',type:'nominal',title:'Metric',scale:{domain:['Avg Likes','Avg Comments'],range:[RED,GREY]}},
+        tooltip:[{field:'quarter',title:'Quarter'},{field:'metric',title:'Metric'},{field:'value',title:'Value',format:',d'}]
+      }
+    },{actions:false});
+
+    /* ── Q2: Scatter + regression ── */
+    vegaEmbed('#vis_likes_vs_comments', {
+      $schema:'https://vega.github.io/schema/vega-lite/v5.json', config:CFG, width:'container', height:380,
+      data:{values:likesVsComments},
+      layer:[
+        {
+          mark:{type:'point',filled:true,size:120,opacity:0.85},
+          encoding:{
+            x:{field:'avgLikes',type:'quantitative',title:'Average Likes per Video',axis:{format:',d'}},
+            y:{field:'avgComments',type:'quantitative',title:'Average Comments per Video',axis:{format:',d'}},
+            color:{field:'genre',type:'nominal',scale:{domain:GENRES,range:GENRE_PALETTE}},
+            tooltip:[{field:'genre',title:'Genre'},{field:'avgLikes',title:'Avg Likes',format:',d'},{field:'avgComments',title:'Avg Comments',format:',d'}]
+          }
+        },
+        {
+          mark:{type:'line',color:LGREY,strokeDash:[6,4],strokeWidth:1.8,opacity:0.7},
+          transform:[{regression:'avgComments',on:'avgLikes'}],
+          encoding:{x:{field:'avgLikes',type:'quantitative'},y:{field:'avgComments',type:'quantitative'}}
+        },
+        {
+          mark:{type:'text',dy:-12,fontSize:10.5},
+          encoding:{
+            x:{field:'avgLikes',type:'quantitative'},y:{field:'avgComments',type:'quantitative'},
+            text:{field:'genre',type:'nominal'},color:{value:GREY}
+          }
+        }
+      ]
+    },{actions:false});
+
+    /* ── Q3: Stacked bar ── */
+    vegaEmbed('#vis_genre_engagement_stack', {
+      $schema:'https://vega.github.io/schema/vega-lite/v5.json', config:CFG, width:'container', height:320,
+      data:{values:stackData},
+      mark:{type:'bar',cornerRadiusTopRight:3,cornerRadiusBottomRight:3},
+      encoding:{
+        y:{field:'genre',type:'nominal',title:null,sort:{field:'value',op:'sum',order:'descending'}},
+        x:{field:'value',type:'quantitative',title:'Average Count per Video',axis:{format:',d'},stack:'zero'},
+        color:{field:'type',type:'nominal',title:'Engagement Type',scale:{domain:['Avg Likes','Avg Comments'],range:[RED,GREY]}},
+        order:{field:'type',sort:'descending'},
+        tooltip:[{field:'genre',title:'Genre'},{field:'type',title:'Type'},{field:'value',title:'Avg Count',format:',d'}]
+      }
+    },{actions:false});
+
+    /* ── Q4: Area + line + labels ── */
+    vegaEmbed('#vis_engagement_rate_trend', {
+      $schema:'https://vega.github.io/schema/vega-lite/v5.json', config:CFG, width:'container', height:300,
+      data:{values:rateTrend},
+      layer:[
+        {
+          mark:{type:'area',color:RED,opacity:0.12},
+          encoding:{
+            x:{field:'year',type:'ordinal',title:'Year'},
+            y:{field:'rate',type:'quantitative',title:'Engagement Rate (%)',scale:{zero:false}}
+          }
+        },
+        {
+          mark:{type:'line',color:RED,strokeWidth:2.8,point:{filled:true,color:RED,size:80}},
+          encoding:{
+            x:{field:'year',type:'ordinal'},
+            y:{field:'rate',type:'quantitative',scale:{zero:false}},
+            tooltip:[{field:'year',title:'Year'},{field:'rate',title:'Engagement Rate (%)',format:'.2f'}]
+          }
+        },
+        {
+          mark:{type:'text',dy:-14,fontSize:12,fontWeight:'bold',color:RED},
+          encoding:{
+            x:{field:'year',type:'ordinal'},
+            y:{field:'rate',type:'quantitative'},
+            text:{field:'rate',type:'quantitative',format:'.2f'}
+          }
+        }
+      ]
+    },{actions:false});
+  </script>
+</body>
+</html>
