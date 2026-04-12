@@ -19,15 +19,11 @@
     <script>
       const options = {
         config: {
-          // Vega-Lite default configuration
         },
         init: (view) => {
-          // initialize tooltip handler
           view.tooltip(new vegaTooltip.Handler().call);
         },
         view: {
-          // view constructor options
-          // remove the loader if you don't want to default to vega-datasets!
           renderer: "canvas",
         },
       };
@@ -38,46 +34,45 @@
   </head>
 
   <body>
-        <header class="nav-bar">
-            <div>
-                <a href="/" class="nav-home-button">Youtube Trends Analysis</a>
-            </div>
-            <div class="nav-items">  
-                <a class="nav-button selected" href="#genre-section">Genre Analysis</a>
-                <!-- Change page link here -->
-                <a class="nav-button" href="user_engagement.html">User Engagement</a>
-            </div>
-        </header>
+    <header class="nav-bar">
+        <div>
+            <a href="/" class="nav-home-button">Youtube Trends Analysis</a>
+        </div>
+        <div class="nav-items">  
+            <a class="nav-button selected" href="#genre-section">Genre Analysis</a>
+            <!-- Change page link here -->
+            <a class="nav-button" href="user_engagement.html">User Engagement</a>
+        </div>
+    </header>
 
-        <section class="hero-container">
-            <div class="hero-text-container">
-                <p class="hero-title">Check out how YouTube Trends have changed over the last 4 years.</p>
-                <p class="hero-text">If you want to become a content creator - see which content of videos can give you more likes.</p>
-                <p class="hero-text">If you are a social marketer - learn how to grab your target audience attention.</p>
-                <p class="hero-text">If you watch YouTube - check whether your favourite channel is popular.</p>
-            </div>
-            <div class="hero-img">
-                <img src="assets/YouTubeIcon.png" alt="YouTube Icon">
-            </div>
-        </section>
+    <section class="hero-container">
+        <div class="hero-text-container">
+            <p class="hero-title">Check out how YouTube Trends have changed over the last 4 years.</p>
+            <p class="hero-text">If you want to become a content creator - see which content of videos can give you more likes.</p>
+            <p class="hero-text">If you are a social marketer - learn how to grab your target audience attention.</p>
+            <p class="hero-text">If you watch YouTube - check whether your favourite channel is popular.</p>
+        </div>
+        <div class="hero-img">
+            <img src="assets/YouTubeIcon.png" alt="YouTube Icon">
+        </div>
+    </section>
 
-        <div class="scroll-down-container">
-            <a href="#genre-section" class="scroll-down-button"><i class="fa-solid fa-chevron-down"></i></a>
+    <div class="scroll-down-container">
+        <a href="#genre-section" class="scroll-down-button"><i class="fa-solid fa-chevron-down"></i></a>
+    </div>
+
+    <section id="genre-section" class="main-container">
+        <p class="section-title">Genre Analysis</p>
+        <p>Track which genres dominate, rise, drop, spike, or remain consistent over time</p>
+        <div class="genre-top">
+              <div id="vis1"></div>
+            <div id="ranking-card" class="ranking-card"></div>
         </div>
 
-        <section id="genre-section">
-            <p class="section-title">Genre Analysis</p>
-            <p>Track which genres dominate, rise, drop, spike, or remain consistent over time</p>
-            <div class="genre-top">
-                  <div id="vis1"></div>
-                <div id="ranking-card" class="ranking-card"></div>
-            </div>
-            
-            <div id="vis1_2"></div>
-            <div id="vis2"></div>
-             
-        </section>
+        <div id="vis2"></div>
+        
+    </section>
 
-        <script src="genreVis.js"></script>
+    <script src="genreVis.js"></script>
   </body>
 </html>
