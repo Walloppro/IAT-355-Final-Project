@@ -36,8 +36,15 @@
       .vis-section {
         margin: 2rem 0; padding: 1.5rem;
         background-color: var(--brand-offWhite);
-        border: 1px solid var(--brand-offGrey);
-        border-left: 5px solid var(--brand-red);
+        border-radius: 12px; 
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06); 
+        border: 1px solid rgba(0, 0, 0, 0.04); 
+        border-left: 5px solid var(--youtube-red); 
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .vis-section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
       }
       .vis-section h3 { color: var(--brand-red); margin-top: 0; }
       .vis-section p.caption {

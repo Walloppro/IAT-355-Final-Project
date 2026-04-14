@@ -25,6 +25,7 @@ body {
   font-weight: 400;
   padding: 0 2rem 2rem 2rem;
   margin: 0;
+  background-color: oklab(100% 0 -0.00011);
 }
 
 .nav-bar {
@@ -65,6 +66,7 @@ body {
     display: flex;
     align-items: center;
     margin: 5rem 0;
+    padding: 2rem;
 }
 
 .hero-text-container {
@@ -116,9 +118,18 @@ body {
     width: 100%;
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     padding: 1rem;
     margin: 1rem 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.vis-container.fit-content {
+    width: fit-content;
+}
+
+.vis-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 div[id^="vis"] {
@@ -126,10 +137,12 @@ div[id^="vis"] {
 }
 
 .ranking-card {
+    flex: 0 0 18rem;
     background: #f5f5f5;
     padding: 1rem;
     border-radius: 12px;
     font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
 }
 
 .ranking-title {
@@ -163,6 +176,30 @@ div[id^="vis"] {
     font-weight: 500;
 }
 
+.genre-top{
+    display: flex;
+    gap: 2rem;
+    align-items: stretch;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.genre-top > .vis-container {
+    flex: 1;
+    min-width: 0;
+    margin: 0; 
+}
+
 .view-value {
     color: #333;
+}
+
+@media screen and (max-width: 800px) {
+    .genre-top {
+        flex-direction: column;
+    }
+    .ranking-card {
+        flex: 1;
+        width: 100%;
+    }
 }
