@@ -31,34 +31,6 @@
       // register vega and vega-lite with the API
       vl.register(vega, vegaLite, options);
     </script>
-    
-    <style>
-      .vis-section {
-        margin: 2rem 0; padding: 1.5rem;
-        background-color: var(--brand-offWhite);
-        border-radius: 12px; 
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06); 
-        border: 1px solid rgba(0, 0, 0, 0.04); 
-        border-left: 5px solid var(--youtube-red); 
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-      .vis-section:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      }
-      .vis-section h3 { color: var(--brand-red); margin-top: 0; }
-      .vis-section p.caption {
-        font-size: 0.88rem; color: var(--brand-offGrey);
-        margin-top: 0.25rem; margin-bottom: 1.25rem;
-      }
-      .chart-wrapper { width: 100%; }
-      .vega-actions  { display: none; }
-      .data-note {
-        font-size: 0.8rem; color: var(--brand-offGrey);
-        border-top: 1px solid var(--brand-offGrey);
-        padding-top: 0.75rem; margin-top: 1rem;
-      }
-    </style>
   </head>
   <body>
     <header class="nav-bar">
@@ -67,17 +39,15 @@
         </div>
         <div class="nav-items">  
             <a class="nav-button" href="index.html">Genre Analysis</a>
-            <!-- Change page link here -->
             <a class="nav-button selected" href="user_engagement.html">User Engagement</a>
         </div>
     </header>
 
     <section class="hero-container">
         <div class="hero-text-container">
-            <p class="hero-title">Check out how YouTube Trends have changed over the last 4 years.</p>
-            <p class="hero-text">If you want to become a content creator - see which content of videos can give you more likes.</p>
-            <p class="hero-text">If you are a social marketer - learn how to grab your target audience attention.</p>
-            <p class="hero-text">If you watch YouTube - check whether your favourite channel is popular.</p>
+            <p class="hero-title">What's been trending on YouTube and why it matters.</p>
+            <p class="hero-text">We analyzed 4 years of YouTube trending data to uncover how viewer tastes, genre dominance, and engagement habits have shifted over time.</p>
+            <p class="hero-text">Whether you're a creator, a marketer, or just a curious viewer, there's something here for you.</p>
         </div>
         <div class="hero-img">
             <img src="assets/YouTubeIcon.png" alt="YouTube Icon">
@@ -89,36 +59,39 @@
     </div>
 
     <main class="" id="user_engagement">
-      <p class="section-title">User Engagement</p>
-      <p>TODO: INCLUDE DESCRIPTION</p>
-      <p>TODO: Below descriptions must change</p>
+        <p class="section-title">User Engagement</p>
+        <p>Likes, comments, views. What do they actually tell us? Dive into how YouTube audiences have interacted with trending content over the years, and which genres spark the most conversation.</p>
 
-      <section class="vis-section">
-        <h3>Q1. How Has User Engagement Behavior Changed Over Time?</h3>
-        <div class="chart-wrapper" id="vis_q1"></div>
-      </section>
+        <section class="vis-section">
+            <h3>Are Viewers Getting More Engaged Over Time?</h3>
+            <p class="caption">Tracking likes and comments across 4 years reveals whether YouTube audiences are growing more active or quietly tuning out.</p>
+            <div class="chart-wrapper" id="vis_q1"></div>
+        </section>
 
-      <section class="vis-section">
-        <h3>Q2. Do Videos with Many Likes Also Tend to Have More Comments?</h3>
-        <div class="chart-wrapper" id="vis_q2"></div>
-      </section>
+        <section class="vis-section">
+            <h3>Likes vs. Comments : Do They Go Hand in Hand?</h3>
+            <p class="caption">A video with a million likes doesn't always have a million comments. Explore whether high-like videos also drive conversation, or if the two metrics live separate lives.</p>
+            <div class="chart-wrapper" id="vis_q2"></div>
+        </section>
 
-      <section class="vis-section">
-        <h3>Q3. Which Genre Shows the Most Active User Engagement? (Likes + Comments)</h3>
-        <div class="chart-wrapper" id="vis_q3"></div>
-      </section>
+        <section class="vis-section">
+            <h3>Which Genres Get People Talking (and Liking)?</h3>
+            <p class="caption">Combined likes and comments reveal which categories don't just attract views. They spark genuine audience reactions. Some genres might surprise you.</p>
+            <div class="chart-wrapper" id="vis_q3"></div>
+        </section>
 
-      <section class="vis-section">
-        <h3>Q4. Has Engagement Rate Increased or Decreased Over the Years?</h3>
-        <div class="chart-wrapper" id="vis_q4"></div>
-      </section>
+        <section class="vis-section">
+            <h3>Is YouTube Becoming More or Less or Interactive?</h3>
+            <p class="caption">Engagement rate cuts through raw numbers to show how actively viewers participate relative to total views. Has that ratio shifted as the platform has grown?</p>
+            <div class="chart-wrapper" id="vis_q4"></div>
+        </section>
     </main>
 
     <footer>
-      <p style="font-size:0.85rem; color:var(--brand-offGrey);">
-        Data source:
-        <a href="https://www.kaggle.com/datasets/rsrishav/youtube-trending-video-dataset">Kaggle - YouTube Trending Video Dataset</a> by rsrishav.
-      </p>
+        <p style="font-size:0.85rem; color:var(--brand-offGrey);">
+            Data source:
+            <a href="https://www.kaggle.com/datasets/rsrishav/youtube-trending-video-dataset">Kaggle - YouTube Trending Video Dataset</a> by rsrishav.
+        </p>
     </footer>
     <script src="userEngagementVis.js"></script>
   </body>

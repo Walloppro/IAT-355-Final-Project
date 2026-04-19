@@ -121,6 +121,8 @@ const vis2 = {
     data: {
         url: "dataset/US_youtube_trending_data.csv"
     },
+    width: "container",
+    height: 340,
     description: "Number of Trending Videos by Genre",
     transform: [
         {

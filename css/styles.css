@@ -65,7 +65,7 @@ body {
 .hero-container {
     display: flex;
     align-items: center;
-    margin: 5rem 0;
+    margin: 8rem 0 12rem;
     padding: 2rem;
 }
 
@@ -121,6 +121,8 @@ body {
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     padding: 1rem;
     margin: 1rem 0;
+    border: 1px solid rgba(0, 0, 0, 0.04); 
+    border-left: 5px solid var(--youtube-red); 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .vis-container.fit-content {
@@ -182,6 +184,7 @@ div[id^="vis"] {
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
+    margin: 1rem 0;
 }
 
 .genre-top > .vis-container {
@@ -192,6 +195,51 @@ div[id^="vis"] {
 
 .view-value {
     color: #333;
+}
+
+.vis-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: var(--brand-offWhite);
+    border-radius: 12px; 
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06); 
+    border: 1px solid rgba(0, 0, 0, 0.04); 
+    border-left: 5px solid var(--youtube-red); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vis-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.vis-section h3 {
+    color: var(--brand-red);
+    margin-top: 0;
+}
+
+.vis-container p.caption,
+.vis-section p.caption {
+    font-size: 0.88rem;
+    color: var(--brand-offGrey);
+    margin-top: 0.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.chart-wrapper {
+    width: 100%;
+}
+
+.vega-actions  {
+    display: none;
+}
+
+.data-note {
+    font-size: 0.8rem;
+    color: var(--brand-offGrey);
+    border-top: 1px solid var(--brand-offGrey);
+    padding-top: 0.75rem;
+    margin-top: 1rem;
 }
 
 @media screen and (max-width: 800px) {

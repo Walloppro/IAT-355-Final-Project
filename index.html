@@ -40,17 +40,15 @@
         </div>
         <div class="nav-items">  
             <a class="nav-button selected" href="#genre-section">Genre Analysis</a>
-            <!-- Change page link here -->
             <a class="nav-button" href="user_engagement.html">User Engagement</a>
         </div>
     </header>
 
     <section class="hero-container">
         <div class="hero-text-container">
-            <p class="hero-title">Check out how YouTube Trends have changed over the last 4 years.</p>
-            <p class="hero-text">If you want to become a content creator - see which content of videos can give you more likes.</p>
-            <p class="hero-text">If you are a social marketer - learn how to grab your target audience attention.</p>
-            <p class="hero-text">If you watch YouTube - check whether your favourite channel is popular.</p>
+            <p class="hero-title">What's been trending on YouTube and why it matters.</p>
+            <p class="hero-text">We analyzed 4 years of YouTube trending data to uncover how viewer tastes, genre dominance, and engagement habits have shifted over time.</p>
+            <p class="hero-text">Whether you're a creator, a marketer, or just a curious viewer, there's something here for you.</p>
         </div>
         <div class="hero-img">
             <img src="assets/YouTubeIcon.png" alt="YouTube Icon">
@@ -62,17 +60,23 @@
     </div>
 
     <section id="genre-section" class="main-container">
-        <p class="section-title">Genre Analysis</p>
-        <p>Track which genres dominate, rise, drop, spike, or remain consistent over time</p>
+        <p class="section-title">Genre Trends Over Time</p>
+        <p class="section-subtitle">Some genres rule the charts. Others quietly fade. See how viewership has shifted across categories from 2020 to 2024 — and which genres kept their grip on the trending page.</p>
+
         <div class="genre-top">
             <div class="vis-container">
-              <div id="vis1" class="vis1"></div>
+                <h3>The Rise and Fall of Genre Popularity</h3>
+                <p class="caption">Which genres pulled in the most views and did they hold their ground over time? Hover over the chart to explore yearly shifts across categories.</p>
+                <div id="vis1" class="vis1"></div>
             </div>
-              <div id="ranking-card" class="ranking-card"></div>
+            <div id="ranking-card" class="ranking-card"></div>
         </div>
-        <div class="vis-container fit-content">
-          <div id="vis2"></div>
-        </div>
+
+        <section class="vis-section">
+            <h3>Who Owns the Trending Page?</h3>
+            <p class="caption">Volume of trending videos by genre reveals which categories dominate YouTube's spotlight and which ones only make a brief appearance.</p>
+            <div class="chart-wrapper" id="vis2"></div>
+        </section>
     </section>
 
     <script src="genreVis.js"></script>
