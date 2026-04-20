@@ -1,7 +1,7 @@
 const vis1 = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
   data: {
-    url: "https://drive.google.com/file/d/18rncZcXjWFkTtjTtVaiMZ9cXQhxwCy6z/view?usp=sharing"
+    url: "dataset/US_youtube_trending_data.csv"
   },
   width:'container', 
   height: 300,
@@ -64,7 +64,7 @@ vegaEmbed("#vis1", vis1);
 const validCategories = ['24','20','10','27','17','25'];
 
 async function loadRanking() {
-    const data = await d3.csv("https://drive.google.com/uc?export=download&id=18rncZcXjWFkTtjTtVaiMZ9cXQhxwCy6z");
+    const data = await d3.csv("dataset/US_youtube_trending_data.csv");
 
     const selected = data.filter(d => validCategories.includes(d.categoryId));
 
@@ -119,7 +119,7 @@ loadRanking();
 const vis2 = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
     data: {
-        url: "https://drive.google.com/file/d/18rncZcXjWFkTtjTtVaiMZ9cXQhxwCy6z/view?usp=sharing"
+        url: "dataset/US_youtube_trending_data.csv"
     },
     width: "container",
     height: 340,
