@@ -23,8 +23,9 @@ body {
   font-family: var(--fonts-body);
   color: var(--black-text);
   font-weight: 400;
-  padding: 0 2rem 2rem 2rem;
-  margin: 0;
+  max-width: 1200px;
+  padding: 0 2rem 2rem;
+  margin: 0 auto;
   background-color: oklab(100% 0 -0.00011);
 }
 
@@ -125,6 +126,10 @@ body {
     border-left: 5px solid var(--youtube-red); 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+.vis-title {
+    font-weight: 600;
+}
+
 .vis-container.fit-content {
     width: fit-content;
 }
@@ -148,7 +153,6 @@ div[id^="vis"] {
 }
 
 .ranking-title {
-    font-size: 16px;
     font-weight: 600;
 }
 
@@ -184,7 +188,7 @@ div[id^="vis"] {
     align-items: stretch;
     width: 100%;
     box-sizing: border-box;
-    margin: 1rem 0;
+    margin: 2rem 0 1rem;
 }
 
 .genre-top > .vis-container {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Final Project</title>
+    <title>YouTube Trending Analysis - Genre Analysis</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
     <!-- <link href="css/main.css" rel="stylesheet"> -->
     <link href="css/styles.css" rel="stylesheet">
@@ -65,7 +65,7 @@
 
         <div class="genre-top">
             <div class="vis-container">
-                <h3>The Rise and Fall of Genre Popularity</h3>
+                <p class="vis-title">The Rise and Fall of Genre Popularity</p>
                 <p class="caption">Which genres pulled in the most views and did they hold their ground over time? Hover over the chart to explore yearly shifts across categories.</p>
                 <div id="vis1" class="vis1"></div>
             </div>
@@ -73,11 +73,18 @@
         </div>
 
         <section class="vis-section">
-            <h3>Who Owns the Trending Page?</h3>
+            <p class="vis-title">Who Owns the Trending Page?</p>
             <p class="caption">Volume of trending videos by genre reveals which categories dominate YouTube's spotlight and which ones only make a brief appearance.</p>
             <div class="chart-wrapper" id="vis2"></div>
         </section>
     </section>
+
+    <footer>
+        <p style="font-size:0.85rem; color:var(--brand-offGrey);">
+            Data source:
+            <a href="https://www.kaggle.com/datasets/rsrishav/youtube-trending-video-dataset">Kaggle - YouTube Trending Video Dataset</a> by rsrishav.
+        </p>
+    </footer>
 
     <script src="genreVis.js"></script>
   </body>
