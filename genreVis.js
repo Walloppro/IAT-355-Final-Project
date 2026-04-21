@@ -1,3 +1,9 @@
+d3.csv("dataset/US_youtube_trending_data.csv").then(data => {
+    console.log("Total rows:", data.length);
+    console.log("First row:", data[0]);
+    console.log("Sample categoryIds:", data.slice(0, 5).map(d => d.categoryId));
+});
+
 const vis1 = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
   data: {
