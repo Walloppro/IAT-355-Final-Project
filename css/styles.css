@@ -300,7 +300,8 @@ div[id^="vis"] {
 
 .vis-section .vega-embed details {
     position: absolute;
-    top: -4.5rem;
+    top: -0.5rem;
+    right: 0rem;
     z-index: 10;
 }
 
