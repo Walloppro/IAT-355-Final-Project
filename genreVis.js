@@ -164,13 +164,11 @@ const vis2 = {
             title: "Number of Trending Videos",
             axis: {format: "s"}
         },
-
         color: {
             field: "genre",
             type: "nominal",
             legend: null
         },
-
         tooltip: [
             { field: "genre", type: "nominal" },
             { aggregate: "count", type: "quantitative", title: "Video Count" }
