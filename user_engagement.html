@@ -59,36 +59,69 @@
     </div>
 
     <main class="main-container" id="user_engagement">
-        <p class="section-title">User Engagement</p>
-        <p>Likes, comments, views. What do they actually tell us? Dive into how YouTube audiences have interacted with trending content over the years, and which genres spark the most conversation.</p>
+        <p class="section-title">USER ENGAGEMENT</p>
+        <p class="section-subtitle">
+            Views tell you who showed up. But likes and comments tell you who actually cared. 
+            We dug into 4 years of engagement data to understand not just what people watched — 
+            but how they responded, which genres sparked the most reaction, and whether YouTube 
+            audiences are becoming more or less active over time.
+        </p>
 
         <section class="vis-section">
             <p class="vis-title">Are Viewers Getting More Engaged Over Time?</p>
-            <p class="caption">Tracking likes and comments across 4 years reveals whether YouTube audiences are growing more active or quietly tuning out.</p>
+            <p class="caption">
+                At first glance, YouTube's engagement numbers look healthy — likes have consistently 
+                hovered around 150,000 per trending video. But look closer and a split emerges: 
+                while likes fluctuate year to year, comments have stayed almost completely flat throughout the entire period. 
+                This gap is telling. Liking a video takes one tap. Commenting takes thought, effort, and intent. 
+                The data suggests that while viewers are still showing up and approving content, 
+                fewer of them feel compelled to actually join the conversation.
+            </p>
             <div class="chart-wrapper" id="vis_q1"></div>
         </section>
 
         <section class="vis-section">
             <p class="vis-title">Likes vs. Comments : Do They Go Hand in Hand?</p>
-            <p class="caption">A video with a million likes doesn't always have a million comments. Explore whether high-like videos also drive conversation, or if the two metrics live separate lives.</p>
+            <p class="caption">
+                You might assume a viral video — one loaded with likes — would also be flooded with comments. 
+                But the data tells a more nuanced story. There is a loose positive relationship between likes and comments, 
+                but it's weak. Videos can accumulate hundreds of thousands of likes while generating very little discussion. 
+                This means reach and community are two different things. A video can go wide without going deep. 
+                For creators, this is an important distinction — racking up likes is not the same as building an audience that talks back.
+            </p>
             <div class="chart-wrapper" id="vis_q2"></div>
         </section>
 
         <section class="vis-section">
             <p class="vis-title">Which Genres Get People Talking (and Liking)?</p>
-            <p class="caption">Combined likes and comments reveal which categories don't just attract views. They spark genuine audience reactions. Some genres might surprise you.</p>
+            <p class="caption">
+                Not all genres inspire the same kind of response. Music and Entertainment lead in raw engagement numbers, 
+                which tracks with their dominance in views. But the more interesting story is in the ratio. 
+                News and Education, despite lower overall numbers, tend to drive proportionally more comments — 
+                suggesting their audiences are more opinionated, more invested, and more likely to respond. 
+                If you're a creator who wants an active community rather than just passive viewers, 
+                genre choice matters more than you might think.
+            </p>
             <div class="chart-wrapper" id="vis_q3"></div>
         </section>
 
         <section class="vis-section">
             <p class="vis-title">Is YouTube Becoming More or Less or Interactive?</p>
-            <p class="caption">Engagement rate cuts through raw numbers to show how actively viewers participate relative to total views. Has that ratio shifted as the platform has grown?</p>
+            <p class="caption">
+                Even as YouTube has grown, engagement rate — the ratio of likes and comments to total views — 
+                has trended downward over the four years. More people are watching, but a smaller proportion 
+                of them are actively participating. One likely explanation is the rise of short-form content. 
+                YouTube Shorts, TikTok, and Instagram Reels have conditioned audiences to passively scroll 
+                rather than stop, watch fully, and engage. The platform is reaching more eyeballs than ever, 
+                but converting fewer of them into active participants. For creators, this means the bar 
+                for sparking genuine engagement is only getting higher.
+            </p>
             <div class="chart-wrapper" id="vis_q4"></div>
         </section>
     </main>
 
     <footer>
-        <p style="font-size:0.85rem; color:var(--brand-offGrey);">
+        <p class="source-text">
             Data source:
             <a href="https://www.kaggle.com/datasets/rsrishav/youtube-trending-video-dataset">Kaggle - YouTube Trending Video Dataset</a> by rsrishav.
         </p>

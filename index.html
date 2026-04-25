@@ -60,13 +60,17 @@
     </div>
 
     <section id="genre-section" class="main-container">
-        <p class="section-title">Genre Trends Over Time</p>
+        <p class="section-title">GENRE TRENDS OVER TIME</p>
         <p class="section-subtitle">Some genres rule the charts. Others quietly fade. See how viewership has shifted across categories from 2020 to 2024 — and which genres kept their grip on the trending page.</p>
 
         <div class="genre-top">
             <div class="vis-container">
                 <p class="vis-title">The Rise and Fall of Genre Popularity</p>
-                <p class="caption">Which genres pulled in the most views and did they hold their ground over time? Hover over the chart to explore yearly shifts across categories.</p>
+                <p class="caption">
+                    YouTube has over 800 million videos — but only a handful of genres consistently dominate what people actually watch. 
+                    Over the past 4 years, the gap between the top and bottom genres has only grown wider. 
+                    So what's driving the top, and who's getting left behind?
+                </p>
                 <div id="vis1" class="vis1"></div>
             </div>
             <div id="ranking-card" class="ranking-card"></div>
@@ -74,13 +78,23 @@
 
         <section class="vis-section">
             <p class="vis-title">Who Owns the Trending Page?</p>
-            <p class="caption">Volume of trending videos by genre reveals which categories dominate YouTube's spotlight and which ones only make a brief appearance.</p>
+            <p class="caption">
+                Views tell us what got watched — but the trending page tells us what YouTube chose to amplify. 
+                Entertainment and Gaming dominate the trending count, appearing far more frequently than any other category. 
+                Interestingly, Music ranks second in total views but doesn't appear on the trending page as often, suggesting that a smaller number of Music videos pull massive view counts rather than a large volume of videos trending consistently. 
+                The trending page isn't just a popularity contest — it reflects what YouTube's algorithm decided to put in front of people.
+            </p>
             <div class="chart-wrapper" id="vis2"></div>
         </section>
+
+        <div class="next-container">
+            <p class="next-text">Genres tell half the story. Now see how audiences actually respond.</p>
+            <a href="user_engagement.html" class="next-button">Explore User Engagement →</a>
+        </div>
     </section>
 
     <footer>
-        <p style="font-size:0.85rem; color:var(--brand-offGrey);">
+        <p class="source-text">
             Data source:
             <a href="https://www.kaggle.com/datasets/rsrishav/youtube-trending-video-dataset">Kaggle - YouTube Trending Video Dataset</a> by rsrishav.
         </p>

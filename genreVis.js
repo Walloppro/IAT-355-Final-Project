@@ -108,7 +108,7 @@ async function loadRanking() {
     const container = document.getElementById("ranking-card");
 
     container.innerHTML = `
-        <div class="ranking-title">Ranking</div>
+        <div class="ranking-title">RANKING</div>
         <div class="ranking-subtitle">By view counts</div>
         ${sorted.map((d, i) => `
             <div class="ranking-item">
