@@ -55,7 +55,8 @@ const vis1 = {
         color: {
             field: "genre",
             type: "nominal",
-            title: "Genre"
+            title: "Genre",
+            legend: {orient: "none", legendX: 20, legendY: 10}
         },
         tooltip: [
             { field: "genre", type: "nominal" },
@@ -98,6 +99,7 @@ async function loadRanking() {
         .sort((a, b) => b.views - a.views);
 
     const format = (num) => {
+        if (num >= 1e9) return (num / 1e9).toFixed(1) + "B";
         if (num >= 1e6) return (num / 1e6).toFixed(1) + "M";
         if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
         return num;
@@ -159,7 +161,8 @@ const vis2 = {
         x: {
             aggregate: "count",
             type: "quantitative",
-            title: "Number of Trending Videos"
+            title: "Number of Trending Videos",
+            axis: {format: "s"}
         },
 
         color: {

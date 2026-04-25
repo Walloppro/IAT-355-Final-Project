@@ -35,6 +35,10 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem;
+    position: sticky;
+    top: 2rem;
+    z-index: 1000; 
+    backdrop-filter: blur(10px);
 }
 
 .nav-items {
@@ -126,6 +130,19 @@ body {
     border-left: 5px solid var(--youtube-red); 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.vis-container .vega-embed {
+    position: relative;
+    width: 100%;
+}
+
+.vis-container .vega-embed details {
+    position: absolute;
+    top: -5.25rem;   
+    right: -0.35rem; 
+    z-index: 10; 
+}
+
 .vis-title {
     font-weight: 600;
 }
@@ -210,6 +227,17 @@ div[id^="vis"] {
     border: 1px solid rgba(0, 0, 0, 0.04); 
     border-left: 5px solid var(--youtube-red); 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.vis-section .vega-embed {
+    position: relative;
+    width: 100%;
+}
+
+.vis-section .vega-embed details {
+    position: absolute;
+    top: -4.65rem;   
+    right: -0.75rem; 
+    z-index: 10; 
 }
 
 .vis-section:hover {

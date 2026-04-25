@@ -43,7 +43,7 @@ const vis1 = {
     y: {
       aggregate: "mean", field: "value", type: "quantitative",
       title: "Average Count per Video",
-      axis: { format: ",.0f" }
+      axis: { format: "s" }
     },
     color: {
       field: "metric", type: "nominal", title: "Metric",
@@ -99,13 +99,13 @@ const vis2 = {
           field: "avgLikes",
           type: "quantitative",
           title: "Average Likes per Video",
-          axis: { format: ",.0f" }
+          axis: { format: "s" }
         },
         y: {
           field: "avgComments",
           type: "quantitative",
           title: "Average Comments per Video",
-          axis: { format: ",.0f" }
+          axis: { format: "s" }
         },
         color: {
           field: "genre",
@@ -125,7 +125,7 @@ const vis2 = {
       encoding: {
         x: { 
           field: "avgLikes",
-          type: "quantitative"
+          type: "quantitative",
         },
         y: {
           field: "avgComments",
@@ -138,7 +138,7 @@ const vis2 = {
       encoding: {
         x: { 
           field: "avgLikes", 
-          type: "quantitative" 
+          type: "quantitative" ,
         },
         y: {
           field: "avgComments",
@@ -198,7 +198,7 @@ const vis3 = {
     x: {
       field: "value", type: "quantitative",
       title: "Average Count per Video",
-      axis: { format: ",.0f" },
+      axis: { format: "s" },
       stack: "zero"
     },
     color: {
